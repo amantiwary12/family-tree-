@@ -1,9 +1,10 @@
-import { getFamilyMembers, FamilyMember } from '@/utils/storage';
+import { getFamilyMembers, FamilyMember, deleteFamilyMember } from '@/utils/storage';
 import PersonCard from './PersonCard';
 import { Heart } from 'lucide-react';
+import { useState } from 'react';
 
 const FamilyTreeDisplay = () => {
-  const members = getFamilyMembers();
+  const [members, setMembers] = useState<FamilyMember[]>(getFamilyMembers());
   const groomMembers = members.filter((m) => m.side === 'groom');
   const brideMembers = members.filter((m) => m.side === 'bride');
 
@@ -20,6 +21,13 @@ const FamilyTreeDisplay = () => {
   const groomGrouped = groupByRelation(groomMembers);
   const brideGrouped = groupByRelation(brideMembers);
 
+  const handleDelete = (id: string) => {
+    // Delete from storage
+    deleteFamilyMember(id);
+    // Update state to reflect changes
+    setMembers(getFamilyMembers());
+  };
+
   const renderSide = (grouped: Record<string, FamilyMember[]>, title: string, side: 'groom' | 'bride') => (
     <div className="flex-1 space-y-8">
       <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
@@ -34,6 +42,7 @@ const FamilyTreeDisplay = () => {
                 relation={person.relation}
                 photoUrl={person.photoUrl}
                 side={side}
+                onDelete={() => handleDelete(person.id)}
               />
             ))}
           </div>

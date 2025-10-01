@@ -9,8 +9,10 @@ import { saveFamilyMember } from '@/utils/storage';
 import { toast } from 'sonner';
 
 const relations = {
-  groom: ['Father', 'Mother', 'Brother', 'Sister', 'Uncle', 'Aunt', 'Cousin', 'Grandfather', 'Grandmother'],
-  bride: ['Father', 'Mother', 'Brother', 'Sister', 'Uncle', 'Aunt', 'Cousin', 'Grandfather', 'Grandmother'],
+  groom: ["Father", "Mother", "Brother", "Sister", "Grandfather", "Grandmother",
+  "Uncle", "Aunt", "Cousin", "Friend", "Best Man", "Maid of Honor", "Bridesmaid", "Groomsman"],
+  bride: ["Father", "Mother", "Brother", "Sister", "Grandfather", "Grandmother",
+  "Uncle", "Aunt", "Cousin", "Friend", "Best Man", "Maid of Honor", "Bridesmaid", "Groomsman"],
 };
 
 const UploadForm = () => {

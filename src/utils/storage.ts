@@ -25,6 +25,12 @@ export const getFamilyMembers = (): FamilyMember[] => {
   return data ? JSON.parse(data) : [];
 };
 
+export const deleteFamilyMember = (id: string): void => {
+  const members = getFamilyMembers();
+  const updatedMembers = members.filter(member => member.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMembers));
+};
+
 export const clearFamilyMembers = (): void => {
   localStorage.removeItem(STORAGE_KEY);
 };
