@@ -22,19 +22,19 @@ const FamilyTreeDisplay = () => {
   const brideGrouped = groupByRelation(brideMembers);
 
   const handleDelete = (id: string) => {
-    // Delete from storage
-    deleteFamilyMember(id);
-    // Update state to reflect changes
-    setMembers(getFamilyMembers());
+    if (window.confirm('Are you sure you want to delete this family member?')) {
+      deleteFamilyMember(id);
+      setMembers(getFamilyMembers());
+    }
   };
 
   const renderSide = (grouped: Record<string, FamilyMember[]>, title: string, side: 'groom' | 'bride') => (
-    <div className="flex-1 space-y-8">
-      <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
+    <div className="flex-1 space-y-6 lg:space-y-8">
+      <h2 className="text-2xl lg:text-3xl font-bold text-center mb-6 lg:mb-8">{title}</h2>
       {Object.entries(grouped).map(([relation, people]) => (
-        <div key={relation} className="space-y-4">
-          <h3 className="text-xl font-semibold text-center text-muted-foreground">{relation}s</h3>
-          <div className="flex flex-wrap gap-6 justify-center">
+        <div key={relation} className="space-y-3 lg:space-y-4">
+          <h3 className="text-lg lg:text-xl font-semibold text-center text-muted-foreground">{relation}s</h3>
+          <div className="flex flex-wrap gap-3 lg:gap-6 justify-center">
             {people.map((person) => (
               <PersonCard
                 key={person.id}
@@ -53,22 +53,22 @@ const FamilyTreeDisplay = () => {
 
   if (members.length === 0) {
     return (
-      <div className="text-center py-20">
-        <Heart className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-        <h3 className="text-2xl font-bold mb-2">No Family Members Yet</h3>
-        <p className="text-muted-foreground">Scan the QR code to start adding family members</p>
+      <div className="text-center py-12 lg:py-20 px-4">
+        <Heart className="w-12 h-12 lg:w-16 lg:h-16 mx-auto mb-4 text-muted-foreground" />
+        <h3 className="text-xl lg:text-2xl font-bold mb-2">No Family Members Yet</h3>
+        <p className="text-muted-foreground text-sm lg:text-base">Scan the QR code to start adding family members</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-12">
-      <div className="flex flex-col lg:flex-row gap-12 items-start justify-center">
+    <div className="space-y-8 lg:space-y-12 px-4">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-center">
         {groomMembers.length > 0 && renderSide(groomGrouped, "Groom's Family", 'groom')}
         
         {groomMembers.length > 0 && brideMembers.length > 0 && (
-          <div className="flex items-center justify-center lg:my-24">
-            <Heart className="w-12 h-12 text-accent animate-pulse" fill="currentColor" />
+          <div className="flex items-center justify-center lg:my-24 py-4 lg:py-0">
+            <Heart className="w-8 h-8 lg:w-12 lg:h-12 text-accent animate-pulse" fill="currentColor" />
           </div>
         )}
         
