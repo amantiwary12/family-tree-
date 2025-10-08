@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Eye, Heart, Users } from 'lucide-react';
 
 const Index = () => {
-  const formUrl = `${window.location.origin}/add-member`;
+  const formUrl = `${window.location.origin}${window.location.pathname}#/add-member`; // use hash so QR works on static hosts
+
 
   return (
     <div className="min-h-screen wedding-gradient">
